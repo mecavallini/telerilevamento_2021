@@ -31,11 +31,42 @@ plot(p224r63_2011$B1_sre, col=cls)
 
 dev.off()
 #funzione par:  mf(multiframe) 1 riga e 2 colonne
+
+# 1 row, 2 columns
 par(mfrow=c(1,2))
-clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) # 
-plot(p224r63_2011$B1_sre, col=clb)
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
 
 # 2 row, 1 columns
 par(mfrow=c(2,1))
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
+
+      #se si indica prima il numero di colonne par(mfcol...)
+
+#plot delle prime 4 bande
+par(mfrow=c(4,1))
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+plot(p224r63_2011$B3_sre)
+plot(p224r63_2011$B4_sre)
+
+#plot delle prime 4 bande in 2x2
+par(mfrow=c(2,2))
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+plot(p224r63_2011$B3_sre)
+plot(p224r63_2011$B4_sre)
+
+par(mfrow=c(2,2))
+clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) # 
+plot(p224r63_2011$B1_sre, col=clb)
+
+clg <- colorRampPalette(c('dark green','green','light green'))(100) # 
+plot(p224r63_2011$B2_sre, col=clg)
+
+clr <- colorRampPalette(c('dark red','red','light red'))(100) # 
+plot(p224r63_2011$B3_sre, col=clr)
+
+clnir <- colorRampPalette(c('red','orange','yellow'))(100) # 
+plot(p224r63_2011$B4_sre, col=clnir)
