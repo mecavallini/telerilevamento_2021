@@ -70,3 +70,32 @@ plot(p224r63_2011$B3_sre, col=clr)
 
 clnir <- colorRampPalette(c('red','orange','yellow'))(100) # 
 plot(p224r63_2011$B4_sre, col=clnir)
+
+#visualizzare dati in plot rgb
+# B1: blue
+# B2: green
+# B3: red
+# B4: NIR infrarosso vicino
+# B5 infrarosso medio
+# B6 infrarosso termico
+# B7 infrarosso medio
+
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
+
+pdf("ilmioprimopdf.pdf")
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
+dev.off()
+#chiusura pdf
+
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="lin") #colori naturali
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin") #falsi colori lineari
+#stretch histogram
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist") #falsi colori histograms
