@@ -1,0 +1,13 @@
+
+library(raster)
+install.packages("ncdf4")
+library(ncdf4) #per leggere i file ncdf
+
+setwd("/Users/mariaelenacavallini/lab/")
+SWI <- raster("c_gls_SWI10_202006011200_GLOBE_ASCAT_V3.1.1.nc") #soil water index
+
+plot(SWI)
+
+ext <- c(6, 20, 35, 50)
+testc <- crop(test, ext)
+plot(testc)
