@@ -1,7 +1,7 @@
 # starting from the code folder where framed.sty is put
 
-setwd("/Users/mariaelenacavallini/lab/") # Mac
-
+#setwd("/Users/mariaelenacavallini/lab/") # Mac
+setwd("C:/lab") # Windows
 #require(knitr)
 library(knitr)
 
