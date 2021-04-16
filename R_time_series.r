@@ -20,7 +20,7 @@ par(mfrow=c(2,2)) #unico grafico con i 4 dati temporali
     plot(lst_2005)
     plot(lst_2010)
     plot(lst_2015)
-dev.off()
+#dev.off()
 
 #list f file:
 rlist <- list.files(pattern="lst") #vado solo a trovare i file con nome "lst"
