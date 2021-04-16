@@ -1,4 +1,3 @@
-
 library(raster)
 install.packages("ncdf4")
 library(ncdf4) #per leggere i file ncdf
