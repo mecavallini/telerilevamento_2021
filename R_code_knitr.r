@@ -5,4 +5,4 @@ setwd("/Users/mariaelenacavallini/lab/") # Mac
 #require(knitr)
 library(knitr)
 
-stitch("GNLD.r", template=system.file("misc", "knitr-template.Rnw", package="knitr"))
+stitch("gr.r", template=system.file("misc", "knitr-template.Rnw", package="knitr"))
