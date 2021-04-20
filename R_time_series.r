@@ -2,14 +2,14 @@
 # greenland increase of temperature
 # data e codice di Emanuela Cosma
 
-install.packages("raster")
+#install.packages("raster")
 library(raster)
 #rasterVis: metodi di visualizzazione per i dati raster
-install.packages("rasterVis")
+#install.packages("rasterVis")
 library(rasterVis)
-
-setwd("C:/lab/greenland") # Windows
-#setwd("/Users/mariaelenacavallini/lab/greenland") 
+library(rgdal)
+#setwd("C:/lab/greenland") # Windows
+setwd("/Users/mariaelenacavallini/lab/greenland") 
 lst_2000 <- raster("lst_2000.tif")
 #plot(lst_2000) per visualizzare la prima mappa caricata
 lst_2005 <- raster("lst_2005.tif")
