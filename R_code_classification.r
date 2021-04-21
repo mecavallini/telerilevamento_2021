@@ -35,3 +35,6 @@ set.seed(42) #per il numero random
 mue <- unsuperClass(mu, nClasses=100)
 #cl <- colorRampPalette(c('yellow','red','black'))(100)
 plot(mue$map)
+
+#usano tutti sensori passivi, mentre la scansione laser/radar è attiva (le nuvole vengono eliminate).
+
