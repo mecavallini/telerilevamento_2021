@@ -1,5 +1,5 @@
 # starting from the code folder where framed.sty is put
-
+#utilizzare solo Rstudio!!!
 setwd("/Users/mariaelenacavallini/lab/") # Mac
 #setwd("C:/lab") # Windows
 #require(knitr)
