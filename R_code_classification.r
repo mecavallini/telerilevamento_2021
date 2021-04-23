@@ -38,3 +38,25 @@ plot(mue$map)
 
 #usano tutti sensori passivi, mentre la scansione laser/radar è attiva (le nuvole vengono eliminate).
 
+#grand canyon data 
+library(raster) #per rasterbrick
+library(RStoolbox)
+
+setwd("/Users/mariaelenacavallini/lab/") # Mac
+#setwd("C:/lab") # Windows
+
+gc <- brick("dolansprings_oli_2013088_canyon_lrg.jpg") #per caricare un immagine con più livelli
+
+#visualizzare RGB raster
+plotRGB(gc, 1, 2, 3, stretch="lin") 
+plotRGB(gc, 1, 2, 3, stretch="hist") 
+
+gce <- unsuperClass(gc, nClasses=2)
+plot(gce$map)
+
+gcc4 <- unsuperClass(gc, nClasses=4)
+plot(gcc4$map)
+
+
+
+
