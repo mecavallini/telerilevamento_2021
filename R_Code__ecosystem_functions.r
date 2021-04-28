@@ -5,6 +5,8 @@
 # chemical cycling
 # proxies
 
+
+
 install.packages("rasterdiv")
 #install.packages("rasterVis")
 
@@ -25,6 +27,9 @@ levelplot(copNDVI100)
 
 ####################################
 
+setwd("/Users/mariaelenacavallini/lab/") # Mac
+#setwd("C:/lab") # Windows
+
 # library(ggplot2)
 
 # myPalette <- colorRampPalette(c('white','green','dark green'))
@@ -36,20 +41,13 @@ levelplot(copNDVI100)
 #   theme(legend.position = "bottom") +
 #  NULL
 
-
-setwd("~/lab/")
-# setwd("/Users/utente/lab") #mac
-# setwd("C:/lab/") # windows
-
 library(raster)
 
-defor1 <- brick("defor1_.jpg") 
-defor2 <- brick("defor2_.jpg") 
-
-# band1: NIR, defor1_.1
-# band2: red, defor1_.2
+defor1 <- brick("defor1.jpg") 
+defor2 <- brick("defor2.jpg") 
+# band1: NIR
+# band2: red
 # band3: green
-
 plotRGB(defor1, r=1, g=2, b=3, stretch="Lin")
 plotRGB(defor2, r=1, g=2, b=3, stretch="Lin")
 
