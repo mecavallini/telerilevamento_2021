@@ -8,6 +8,7 @@ library(raster)
 #install.packages("rasterVis")
 library(rasterVis)
 library(rgdal)
+
 #setwd("C:/lab/greenland") # Windows
 setwd("/Users/mariaelenacavallini/lab/greenland") 
 lst_2000 <- raster("lst_2000.tif")
