@@ -51,3 +51,7 @@ Si1<- spectralIndices(defor1, green=3, red=2, nir=1)
 plot(Si1, col=cl)
 Si2 <- spectralIndices(defor2, green=3, red=2, nir=1)
 plot(Si2, col=cl)
+
+#differenza tra NDVI1 e 2
+difndvi <- NDVI1 - NDVI2
+plot(difndvi, col=cld, main="differenza di ndvi")
