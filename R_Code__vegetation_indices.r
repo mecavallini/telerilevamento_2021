@@ -55,3 +55,13 @@ plot(Si2, col=cl)
 #differenza tra NDVI1 e 2
 difndvi <- NDVI1 - NDVI2
 plot(difndvi, col=cld, main="differenza di ndvi")
+
+## for the worldwide NDVI
+# install.packages("rasterdiv")
+library(rasterdiv)
+# install.packages("rasterVis")
+library(rasterVis)
+copNDVI <- reclassify(copNDVI, cbind(253:255, NA)) #per eliminare l'acqua
+plot(copNDVI)
+levelplot(copNDVI)
+
