@@ -2,7 +2,7 @@
 
 #pacchetti utilizzati
 library(raster)
-
+library(RStoolbox) #per fare la PCA
 
 #1. set wd 
 # setwd("~/lab/EN") # Linux
@@ -46,10 +46,15 @@ par(mfrow=c(2,1))
 plot(EN$EN_0001, col=cls)
 plot(EN$EN_0013, col=cls)
  
+#eseguo una PCA delle 13 immagini
+ENpca <- rasterPCA(EN)
+summary(ENpca$model)
+dev.off()
+plotRGB(ENpca$map, 1, 2, 3, stretch="lin")
 
-
-
-
+#calcolo variabilità tra 2 immagini
+PC1sd <- focal(ENpca$map$PC1, w=matric(1/9, nrow=3, ncol=3), fun=sd)
+plot(PC1sd, col=cls)
 
 
 
