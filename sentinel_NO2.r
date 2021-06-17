@@ -53,7 +53,7 @@ dev.off()
 plotRGB(ENpca$map, 1, 2, 3, stretch="lin")
 
 #calcolo variabilità tra 2 immagini
-PC1sd <- focal(ENpca$map$PC1, w=matric(1/9, nrow=3, ncol=3), fun=sd)
+PC1sd <- focal(ENpca$map$PC1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
 plot(PC1sd, col=cls)
 
 
