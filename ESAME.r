@@ -1,11 +1,11 @@
 #codice utilizzato per l'esame 
 #Maria Elena Cavallini
 
-#analisi di immagini tra 201 nel bacino del Gadria (Bz) 
+#analisi di immagini tra 2011 -2020 nel bacino del Gadria (Bz) 
 #classifico detrito vegetato e non vegetato e sua variazione nel tempo - frequenza delle classi (tipo landcover) e relativi grafici
 #variazione ndvi nel tempo
 #ggplot 
-
+# fonte del dato “volo LiDAR unibz - progetto EARFLOW”
 
 
 #imposto la working directory
