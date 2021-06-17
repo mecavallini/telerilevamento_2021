@@ -121,15 +121,6 @@ pl18 <- ggplot(percentages, aes(x= cover, y=percent_18, color=cover)) + #color=c
 grid.arrange(pl11,pl18, nrow =1) #need gridExtra
 
 
-
-
-
-
-
-
-
-
-
 #frequenza 2011 con 3 classi
 f11 <- freq(CLg11$map)
 #     value    count
