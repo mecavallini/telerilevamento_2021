@@ -1,5 +1,10 @@
 #codice utilizzato per l'esame                              Maria Elena Cavallini
 
+
+#GUArda da sito https://maps.civis.bz.it/#/GVCC_INTERNET/?lang=de&login=false&context=false
+#per fare ndvi
+
+
 #analisi di immagini tra 2011 -2020 nel bacino del Gadria (Bz) 
 #classifico detrito vegetato e non vegetato e sua variazione nel tempo - frequenza delle classi (tipo landcover) e relativi grafici
 #variazione ndvi nel tempo
