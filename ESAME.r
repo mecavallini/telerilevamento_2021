@@ -32,12 +32,12 @@ g_18 <- brick("gadria18.tif")
 g_11 <- brick("gadria11.tif")
 g_20 <- brick("gadria20.tif")
 
-
-par(mfrow=c(1,3)) 
-plotRGB(g_11, r=1, g=2, b=3, stretch="lin") 
-plotRGB(g_18, r=1, g=2, b=3, stretch="lin") 
-plotRGB(g_20, r=1, g=2, b=3, stretch="lin") 
-
+jpeg("/Users/mariaelenacavallini/lab/ESAME/parRGB.jpg", 800, 800)
+par(mfrow=c(1,3))
+plotRGB(g_11, r=1, g=2, b=3, stretch="lin", main = "Plot 2011") 
+plotRGB(g_18, r=1, g=2, b=3, stretch="lin", main = "Plot 2018") 
+plotRGB(g_20, r=1, g=2, b=3, stretch="lin", main = "Plot 2020") 
+dev.off()
 ##################################              Unsupervised classification                        #################################
 set.seed(42) #per il numero random
 cl2 <- colorRampPalette(c('light green','goldenrod1','brown'))(100)
@@ -46,19 +46,24 @@ cl2 <- colorRampPalette(c('light green','goldenrod1','brown'))(100)
 #brown detrito più "vecchio"
 
 CLg11 <- unsuperClass(g_11, nClasses=3)
+jpeg("/Users/mariaelenacavallini/lab/ESAME/CLg11.jpg", 800, 800)
 plot(CLg11$map,col=cl2)
 
 CLg18 <- unsuperClass(g_18, nClasses=3)
+jpeg("/Users/mariaelenacavallini/lab/ESAME/CLg18.jpg", 800, 800)
 plot(CLg18$map,col=cl2)
 
 CLg20 <- unsuperClass(g_20, nClasses=3)
+jpeg("/Users/mariaelenacavallini/lab/ESAME/CLg20.jpg", 800, 800)
 plot(CLg20$map,col=cl2)
 
+jpeg("/Users/mariaelenacavallini/lab/ESAME/parCL.jpg", 800, 800)
 par(mfrow=c(1,3))
 plot(CLg11$map,col=cl2)
 plot(CLg18$map,col=cl2)       #i colori sono invertiti
 plot(CLg20$map,col=cl2)
 
+jpeg("/Users/mariaelenacavallini/lab/ESAME/parCL_rgb.jpg", 800, 800)
 par(mfrow=c(3,2))
 plot(CLg11$map,col=cl)
 plot(CLg18$map,col=cl)
@@ -132,39 +137,36 @@ pl20 <- ggplot(percentages, aes(x= cover, y=percent_20, color=cover)) + #color=c
           geom_bar(stat="identity", fill="white")
 grid.arrange(pl11,pl18,pl20, nrow =1) #need gridExtra
 
-###################################                      Calcolo della variazione di NDVI               ######################################
-#g_11 --> RGB --> gadria11.1, gadria11.2, gadria11.3 
-# defor1
-# band1: NIR, defor1.1
-# band2: red, defor1.2
-dvi1 <- defor1$defor1.1 - defor1$defor1.2 #sottrazione delle due bande della defor1 tra banda NIR e rosso
+#################################### 
+setwd("/Users/mariaelenacavallini/lab/ESAME")
 
-# defor2
-# band1: NIR, defor2.1
-# band2: red, defor2.2
-dvi2 <- defor2$defor2.1 - defor2$defor2.2 
+#importo o installo le librerie necessarie
+#install.packages("raster")
+library(raster)
+#rasterVis: metodi di visualizzazione per i dati raster
+#install.packages("rasterVis")
+library(rasterVis)
+library(rgdal)
+library(RStoolbox)
+library(ggplot2)  
+library(gridExtra)
 
+g_11R <- brick("gadria11R.png")
+#g_11R
+plotRGB(g_11R, r=1, g=2, b=3, stretch="lin")     
 cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100) # specifying a color scheme
-par(mfrow=c(2,1))
-plot(dvi1, col=cl)
-plot(dvi2, col=cl)
 
-difdvi <- dvi1 - dvi2
-cld <- colorRampPalette(c('blue','white','red'))(100) 
-plot(difdvi, col=cld)
+g_20R <- brick("gadria20R.png")
+#g_20R
 
 #NDVI range (-1;+1) (NIR-RED)/ (NIR+RED)
-par(mfrow=c(2,1))
-NDVI1= (defor1$defor1.1 - defor1$defor1.2)/(defor1$defor1.1 + defor1$defor1.2)
-plot(NDVI1, col=cl, main="NDVI1")
-NDVI2= (defor2$defor2.1 - defor2$defor2.2)/(defor2$defor2.1 + defor2$defor2.2)
-plot(NDVI2, col=cl, main="NDVI2")
-
-Si1<- spectralIndices(defor1, green=3, red=2, nir=1)
-plot(Si1, col=cl)
-Si2 <- spectralIndices(defor2, green=3, red=2, nir=1)
-plot(Si2, col=cl)
-
-#differenza tra NDVI1 e 2
-difndvi <- NDVI1 - NDVI2
-plot(difndvi, col=cld, main="differenza di ndvi")
+NDVI1= (g_11R$gadria11R.1 - g_11R$gadria11R.2)/(g_11R$gadria11R.1 + g_11R$gadria11R.2)
+jpeg("/Users/mariaelenacavallini/lab/ESAME/NDVI11.jpg", 800, 800)
+plot(NDVI1, col=cl, main="NDVI11")
+dev.off()
+NDVI2= (g_20R$gadria20R.1 - g_20R$gadria20R.2)/(g_20R$gadria20R.1 + g_20R$gadria20R.2)
+jpeg("/Users/mariaelenacavallini/lab/ESAME/NDVI20.jpg", 800, 800)
+plot(NDVI2, col=cl, main="NDVI20")
+dev.off()
+NDVIdiff <- NDVI2 - NDVI1
+plot(NDVIdiff, col=cl)
