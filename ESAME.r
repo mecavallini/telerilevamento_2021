@@ -137,6 +137,17 @@ pl20 <- ggplot(percentages, aes(x= cover, y=percent_20, color=cover)) + #color=c
 grid.arrange(pl11,pl18,pl20, nrow =1) #need gridExtra
 #jpeg("/Users/mariaelenacavallini/lab/ESAME/grafico_percentuali.jpg", 1600, 800)
 
+
+anno <- c("2011","2011","2011", "2018","2018","2018", "2020","2020","2020") 
+percentuali <- c(percent_11,percent_18,percent_20) 
+copertura <- cover 
+data <- data.frame(anno,percentuali,copertura)
+data
+ggplot(data, aes(fill=anno, y=percentuali, x=copertura)) + 
+    geom_bar(position="dodge", stat="identity")
+jpeg("/Users/mariaelenacavallini/lab/ESAME/grafico_percentualiG.png", 1600, 800) #per il salvataggio
+
+
 ####################################          Analisi della variazione di NDVI tra gli anni 2011 e 2020             ################################
 cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100) # specifying a color scheme
 
