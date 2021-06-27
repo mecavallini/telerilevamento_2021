@@ -143,10 +143,24 @@ percentuali <- c(percent_11,percent_18,percent_20)
 copertura <- cover 
 data <- data.frame(anno,percentuali,copertura)
 data
-ggplot(data, aes(fill=anno, y=percentuali, x=copertura)) + 
-    geom_bar(position="dodge", stat="identity")
-jpeg("/Users/mariaelenacavallini/lab/ESAME/grafico_percentualiG.png", 1600, 800) #per il salvataggio
 
+My_Theme = theme(
+  axis.title.x = element_text(size = 18),
+  axis.text.x = element_text(size = 18),
+  axis.title.y = element_text(size = 18),
+  legend.position="right", legend.background = element_rect(fill="lightblue", size=0.5, linetype="solid", colour ="black"), #“left”,“top”, “right”, “bottom”, “none”.
+  legend.key.size = unit(2, 'cm'),
+  legend.title=element_text(size=20), 
+  legend.text=element_text(size=20))
+
+
+g <- ggplot(data, aes(fill=anno, y=percentuali, x=copertura)) + geom_bar(position="dodge", stat="identity") +
+          geom_text(aes(label = percentuali),position=position_dodge(width=0.9), vjust=-0.25, size = 10) +
+          My_Theme
+
+jpeg("/Users/mariaelenacavallini/lab/ESAME/grafico_percentualiGg.png", 1100, 800) #per il salvataggio
+g
+dev.off()
 
 ####################################          Analisi della variazione di NDVI tra gli anni 2011 e 2020             ################################
 cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100) # specifying a color scheme
@@ -167,3 +181,13 @@ plot(NDVI2, col=cl, main="NDVI20")
 NDVIdiff <- NDVI2 - NDVI1
 #jpeg("/Users/mariaelenacavallini/lab/ESAME/NDVIdiff.jpg", 800, 800)
 plot(NDVIdiff, col=cl, main="NDVI20 - NDVI11")
+
+################################
+
+#importo i file .tif tramite la funzione raster
+#inserisco le foto degli anni 2011 - 2018 ------- da inserire anche gli anni 2020
+ZI_11 <- brick("ZI11.tif")
+ZI_18 <- brick("ZI18.tif")
+ZI_20 <- brick("ZI20.tif")
+
+#fai classificazione a 2 
