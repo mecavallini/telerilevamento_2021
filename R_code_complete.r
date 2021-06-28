@@ -20,7 +20,6 @@
 #installo e importo raster
 #install.packages("raster") #con le virgolette perchè fuori da R
 library(raster)
-
 #imposto la working directory
 setwd("/Users/mariaelenacavallini/lab/") 
 
@@ -32,7 +31,7 @@ plot(p224r63_2011) #plot delle 7 bande del file p224r63_2011
 
 #creazione di una palette di colori 
 cl <- colorRampPalette (c("orange","green","pink","purple","gold")) (100)
-plot(p224r63_2011, col=cl)
+plot(p224r63_2011, col=cl)#plot delle 7 bande del file p224r63_2011 con la palette di colori
 
 #simboli e sensori per ogni banda 
 # B1: blue
@@ -46,7 +45,6 @@ plot(p224r63_2011, col=cl)
 #plot solo della banda del blu (B1) tramite l'utilizzo del simbolo $
 cls <- colorRampPalette(c("red","pink","orange","purple")) (200)
 plot(p224r63_2011$B1_sre, col=cls)
-dev.off()
 
 #funzione par: mf(multiframe) di n°righe e colonne determinate
 #se si indica prima il numero di colonne par(mfcol=c(","))
@@ -142,12 +140,11 @@ library(rasterVis)
 library(rgdal)
 
 #imposto la working directory
-#setwd("C:/lab/greenland") # Windows
 setwd("/Users/mariaelenacavallini/lab/greenland") 
 
 #importo i file .tif tramite la funzione raster
 lst_2000 <- raster("lst_2000.tif")
-#plot(lst_2000) per visualizzare la prima mappa caricata
+plot(lst_2000) per visualizzare la prima mappa caricata
 lst_2005 <- raster("lst_2005.tif")
 lst_2010 <- raster("lst_2010.tif")
 lst_2015 <- raster("lst_2015.tif")
@@ -157,10 +154,9 @@ par(mfrow=c(2,2)) #unico grafico con i 4 dati temporali
     plot(lst_2005)
     plot(lst_2010)
     plot(lst_2015)
-#dev.off()
 
-#list f file:
-rlist <- list.files(pattern="lst") #vado solo a trovare i file con nome "lst"
+#funzione list.files:
+rlist <- list.files(pattern="lst") #vado solo a trovare i file con nome "lst" all'interno della mia cartella di wd
 import <- lapply(rlist,raster) #così li importo tutti insieme lapply, con funzione raster che importa singoli file 
 TGr <- stack(import) #fa un blocco unico di file raster in un vettore
 plot(TGr)
@@ -207,19 +203,14 @@ plot(SWIres, col=cl)
 #----------------------------------------------------
 #4
 # starting from the code folder where framed.sty is put
-#utilizzare solo Rstudio!!!
 setwd("/Users/mariaelenacavallini/lab/") # Mac
-#setwd("C:/lab") # Windows
-#require(knitr)
-
 library(knitr)
-
 stitch("R_time_series.r", template=system.file("misc", "knitr-template.Rnw", package="knitr"))
+       #file salvato in .r
 
 #----------------------------------------------------
 #5
 setwd("/Users/mariaelenacavallini/lab/") # Mac
-#setwd("C:/lab") # Windows
 
 library(raster)
 library(RStoolbox)
@@ -232,7 +223,7 @@ plot(p224r63_2011$B1_sre,p224r63_2011$B2_sre, col="red", pch=19, cex=2)
 pairs(p224r63_2011) # si vede la correlazione tra le diverse bande
 
 #utilizzo raster aggregate per ricampionare il file raster p224r63_2011
-p224r63_2011res <- aggregate(p224r63_2011, fact=10, fun=mean)
+p224r63_2011res <- aggregate(p224r63_2011, fact=10, fun=mean) #fun=mean applico la funzione media tra i dati da ricampionare
 plot(p224r63_2011res)
 par(mfrow=c(2,1))
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")           #r=infrarosso, g=blu, b=verde
@@ -249,9 +240,8 @@ str(PCA)
 #----------------------------------------------------
 #6
 setwd("/Users/mariaelenacavallini/lab/") # Mac
-#setwd("C:/lab") # Windows
 
-#immagine con 3 lielli RGB Solar_Orbiter_s_first_views_of_the_Sun_pillars
+#immagine con 3 livelli RGB Solar_Orbiter_s_first_views_of_the_Sun_pillars
 library(raster) #per rasterbrick
 library(RStoolbox)
 so <- brick("Solar_Orbiter_s_first_views_of_the_Sun_pillars.jpg")
@@ -260,9 +250,9 @@ so <- brick("Solar_Orbiter_s_first_views_of_the_Sun_pillars.jpg")
 plotRGB(so, 1, 2, 3, stretch="lin") 
 plotRGB(so, 1, 2, 3, stretch="hist") #diventa con i colori bianco e nero
 
-#unsupervised classification
+#unsupervised classification:classificazione in base alla riflettanza di ogni singolo pixel che compone l'immagine
 set.seed(42) #per il numero random
-soe <- unsuperClass(so, nClasses=3)
+soe <- unsuperClass(so, nClasses=3) #l'immagine viene raggruppata in 3 diverse classi
 cl <- colorRampPalette(c('yellow','red','black'))(100)
 plot(soe$map,col=cl)
 
@@ -293,7 +283,6 @@ library(raster) #per rasterbrick
 library(RStoolbox)
 
 setwd("/Users/mariaelenacavallini/lab/") # Mac
-#setwd("C:/lab") # Windows
 
 gc <- brick("dolansprings_oli_2013088_canyon_lrg.jpg") #per caricare un immagine con più livelli
 
@@ -313,14 +302,15 @@ library(raster)
 library(RStoolbox)
 library(ggplot2)
 library(gridExtra)
-setwd("~/lab/")
+setwd("/Users/mariaelenacavallini/lab/") # Mac
+
 p224r63 <- brick("p224r63_2011_masked.grd")
 ggRGB(p224r63,3,2,1, stretch="lin")
 ggRGB(p224r63,4,3,2, stretch="lin")
 p1 <- ggRGB(p224r63,3,2,1, stretch="lin")
 p2 <- ggRGB(p224r63,4,3,2, stretch="lin")
 grid.arrange(p1, p2, nrow = 2) # this needs gridExtra
-
+#utilizzo di ggRGB del pacchetto ggplot2 per il plot delle foto(raster) in RGB
 
 #----------------------------------------------------
 #8
@@ -373,7 +363,7 @@ plot(NDVI1, col=cl, main="NDVI1")
 NDVI2= (defor2$defor2.1 - defor2$defor2.2)/(defor2$defor2.1 + defor2$defor2.2)
 plot(NDVI2, col=cl, main="NDVI2")
 
-Si1<- spectralIndices(defor1, green=3, red=2, nir=1)
+Si1<- spectralIndices(defor1, green=3, red=2, nir=1) # funzione spectralIndices restituisce tutti gli indici spettrali della foto(raster) inserita.
 plot(Si1, col=cl)
 Si2 <- spectralIndices(defor2, green=3, red=2, nir=1)
 plot(Si2, col=cl)
@@ -404,7 +394,6 @@ library(gridExtra)
 
 
 setwd("/Users/mariaelenacavallini/lab/") # Mac
-#setwd("C:/lab") # Windows
 
 #caricamento delle 2 immagini 
 # https://earthobservatory.nasa.gov/images/35891/deforestation-in-mato-grosso-brazil
@@ -415,21 +404,21 @@ par(mfrow=c(2,1))
 plotRGB(defor1, r=1, g=2, b=3, stretch="lin")
 plotRGB(defor2, r=1, g=2, b=3, stretch="lin")
 
-
 p1 <- ggRGB(defor1, r=1, g=2, b=3, stretch="lin")
 p2 <- ggRGB(defor2, r=1, g=2, b=3, stretch="lin")
-grid.arrange(p1, p2, nrow =2) #un grafico sull'altro #need gridExtra
+grid.arrange(p1, p2, nrow =2) #un grafico sull'altro need gridExtra
 
 #unsuperclass
+set.seed(10) #per avere sempre lo stesso risultato
 d1c <- unsuperClass(defor1, nClasses = 2)
 d2c <- unsuperClass(defor2, nClasses = 2)
 d2c3 <- unsuperClass(defor2, nClasses = 3)
-set.seed(10)
+
 plot(d1c$map)
 plot(d2c$map)
 plot(d2c3$map)
 
-#frequenza
+#Analisi di frequenza
 f1 <- freq(d1c$map)
 #      value  count
 # [1,]     1  35562 agricolo   
@@ -463,7 +452,6 @@ pl06 <- ggplot(percentages, aes(x= cover, y=percent_2006, color=cover)) + #color
           geom_bar(stat="identity", fill="white")
 grid.arrange(pl92,pl06, nrow =1) #need gridExtra
 
-
 #---------------------------------------------------------------------------------
 #10
 #R_Code_variability.r
@@ -476,7 +464,6 @@ library(gridExtra)
 library(viridis)
 
 setwd("/Users/mariaelenacavallini/lab/") # Mac
-#setwd("C:/lab") # Windows
 
 sent <- brick("sentinel.png")
 plotRGB(sent, stretch="lin")
@@ -579,7 +566,6 @@ setwd("/Users/mariaelenacavallini/lab")
 
 #carico il dataset da utilizzare
 #defor1_2: Rio Peixoto de azevedo
-
 defor2 <- brick("defor2.jpg")
 #defor2.1 , defor2.2, defor2.3
 #NIR,       red,      green
@@ -651,7 +637,6 @@ time1 <- c(223,11,33)
 time1p2 <- c(218,16,38)
 time2 <- c(197,163,151)
 time2p2 <- c(149.157,133)
-
 spectralst <- data.frame(band, time1, time2, time1p2, time2p2)
 
 # plot the sepctral signatures
