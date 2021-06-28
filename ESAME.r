@@ -167,7 +167,7 @@ cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100) # specifying a
 g_11R <- brick("gadria11R.png")
 g_20R <- brick("gadria20R.png")
 plotRGB(g_11R, r=1, g=2, b=3, stretch="lin", main = "Plot in false color 2011") 
-plotRGB(g_18R, r=1, g=2, b=3, stretch="lin", main = "Plot in false color 2020") 
+plotRGB(g_20R, r=1, g=2, b=3, stretch="lin", main = "Plot in false color 2020") 
 
 #NDVI range (-1;+1) (NIR-RED)/ (NIR+RED)
 NDVI1= (g_11R$gadria11R.1 - g_11R$gadria11R.2)/(g_11R$gadria11R.1 + g_11R$gadria11R.2)
@@ -175,13 +175,14 @@ NDVI1= (g_11R$gadria11R.1 - g_11R$gadria11R.2)/(g_11R$gadria11R.1 + g_11R$gadria
 plot(NDVI1, col=cl, main="NDVI11")
 
 NDVI2= (g_20R$gadria20R.1 - g_20R$gadria20R.2)/(g_20R$gadria20R.1 + g_20R$gadria20R.2)
-#jpeg("/Users/mariaelenacavallini/lab/ESAME/NDVI20.jpg", 800, 800)
+jpeg("/Users/mariaelenacavallini/lab/ESAME/NDVI20.png", 800, 800)
 plot(NDVI2, col=cl, main="NDVI20")
+dev.off()
 
 NDVIdiff <- NDVI2 - NDVI1
-#jpeg("/Users/mariaelenacavallini/lab/ESAME/NDVIdiff.jpg", 800, 800)
+jpeg("/Users/mariaelenacavallini/lab/ESAME/NDVIdiff.png", 800, 800)
 plot(NDVIdiff, col=cl, main="NDVI20 - NDVI11")
-
+dev.off()
 ################################
 
 #importo i file .tif tramite la funzione raster
