@@ -580,8 +580,8 @@ click(defor2, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 #results
 #     x     y   cell defor2.1 defor2.2 defor2.3
 #1 88.5 131.5 248171      213       12       30       #vegetazione
-        #      x     y   cell defor2.1 defor2.2 defor2.3
-        #1 125.5 224.5 181527       45       43       65      
+#      x     y   cell defor2.1 defor2.2 defor2.3
+#1 125.5 224.5 181527       45       43       65      
 #      x     y   cell defor2.1 defor2.2 defor2.3
 #1 638.5 219.5 185625       47      101      139      #acqua(fiume)
 
@@ -599,14 +599,19 @@ ggplot(spectrals, aes(x=band)) +
 
 ##################################################################
 
-#analisi multitemporale
+#analisi multitemporale e generazione delle firme spettrali
+#una firma spettrale è la variazione di riflettanza o emissione che un materiale ha rispetto alla lunghezza d'onda.
+#è usato in remote sensing per processare le immagini ed estrarre la firma spettrale di ogni singolo pixel e usarle 
+#per dividere l'immagine in grupi con pixel simili usando diversi approcci.
 defor1 <- brick("defor1.jpg")
 plotRGB(defor1, r=1, g=2, b=3, stretch="lin")
 plotRGB(defor2, r=1, g=2, b=3, stretch="lin")
+#funzione click: tramite il click sull'immagine si identifica il pixel cliccato e viene restituito il valore delle 
+#singole bande che compondono l'immagine in questo caso le bande defor1.1 defor1.2 defor1.3, stessa cosa per "defor2".
 click(defor1, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 click(defor2, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 
-#output di 5 valori random
+#output di 5 valori random di pixel 
           #DEFOR1
 #      x     y   cell defor1.1 defor1.2 defor1.3
 #1 331.5 262.5 153842      227       20       36
@@ -632,11 +637,12 @@ click(defor2, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 #1 603.5 362.5 83059      185       24       32
 
 # define the columns of the dataset and generate dataframe:
+# dataset generato con soli 2 punti nelle due immagini temporali.
 band <- c(1,2,3)
 time1 <- c(223,11,33)
 time1p2 <- c(218,16,38)
 time2 <- c(197,163,151)
-time2p2 <- c(149.157,133)
+time2p2 <- c(149,157,133)
 spectralst <- data.frame(band, time1, time2, time1p2, time2p2)
 
 # plot the sepctral signatures
@@ -648,7 +654,7 @@ ggplot(spectralst, aes(x=band)) +
  labs(x="band",y="reflectance")
 
 ######################
-#image from Earth Observatory
+#image from Earth Observatory in cui viene eseguita la firma spettrale
 imm4 <- brick("imm4.jpg")
 plotRGB(imm4, r=1, g=2, b=3, stretch="hist")
 click(imm4, id=T, xy=T, cell=T, type="p", pch=16, col="magenta")
