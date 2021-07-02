@@ -156,8 +156,8 @@ My_Theme = theme(
 
 g <- ggplot(data, aes(fill=anno, y=percentuali, x=copertura)) + geom_bar(position="dodge", stat="identity") +
           geom_text(aes(label = percentuali),position=position_dodge(width=0.9), vjust=-0.25, size = 10) +
-          My_Theme
-
+          My_Theme + 
+          scale_fill_manual(c("light green", "goldenrod1", "brown"))
 jpeg("/Users/mariaelenacavallini/lab/ESAME/grafico_percentualiGg_ultimo.png", 1100, 800) #per il salvataggio
 g
 dev.off()
