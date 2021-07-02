@@ -140,7 +140,7 @@ grid.arrange(pl11,pl18,pl20, nrow =1) #need gridExtra
 
 anno <- c("2011","2011","2011", "2018","2018","2018", "2020","2020","2020") 
 percentuali <- c(percent_11,percent_18,percent_20) 
-copertura <- cover 
+copertura <- cover
 data <- data.frame(anno,percentuali,copertura)
 data
 
@@ -153,11 +153,10 @@ My_Theme = theme(
   legend.title=element_text(size=20), 
   legend.text=element_text(size=20))
 
-
 g <- ggplot(data, aes(fill=anno, y=percentuali, x=copertura)) + geom_bar(position="dodge", stat="identity") +
           geom_text(aes(label = percentuali),position=position_dodge(width=0.9), vjust=-0.25, size = 10) +
-          My_Theme + 
-          scale_fill_manual(c("light green", "goldenrod1", "brown"))
+          My_Theme 
+
 jpeg("/Users/mariaelenacavallini/lab/ESAME/grafico_percentualiGg_ultimo.png", 1100, 800) #per il salvataggio
 g
 dev.off()
