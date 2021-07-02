@@ -27,11 +27,11 @@ setwd("/Users/mariaelenacavallini/lab/")
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
 
 plot(p224r63_2011) #plot delle 7 bande del file p224r63_2011
-#dev.off() si utilizza pe ripulire la finestra di plot
+#dev.off() si utilizza per chiudere la finestra di plot
 
 #creazione di una palette di colori 
 cl <- colorRampPalette (c("orange","green","pink","purple","gold")) (100)
-plot(p224r63_2011, col=cl)#plot delle 7 bande del file p224r63_2011 con la palette di colori
+plot(p224r63_2011, col=cl) #plot delle 7 bande del file p224r63_2011 con la palette di colori
 
 #simboli e sensori per ogni banda 
 # B1: blue
