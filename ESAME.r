@@ -297,3 +297,41 @@ jpeg("/Users/mariaelenacavallini/lab/ESAME/grafico_percentuali_zona_innesco.png"
 zipl
 dev.off()
 
+############################## inserisco zone di innesco #################
+library(rgdal)
+library(raster)
+library(ggplot2)
+library(gridExtra)
+
+# import raster
+innesco11 <- brick("/Users/mariaelenacavallini/lab/ESAME/ZI11.tif")
+innesco20 <- brick("/Users/mariaelenacavallini/lab/ESAME/ZI20.tif")
+
+# convert to a df for plotting in two steps, --> 2011
+# First, to a SpatialPointsDataFrame
+inn11_pts <- rasterToPoints(innesco11, spatial = TRUE)
+# Then to a 'conventional' dataframe
+inn11_df  <- data.frame(inn11_pts)
+
+#dataframe del 2020
+inn20_pts <- rasterToPoints(innesco20, spatial = TRUE)
+# Then to a 'conventional' dataframe
+inn20_df  <- data.frame(inn20_pts)
+
+innesco2011pl <-     ggplot() +
+          geom_raster(data = inn11_df , aes(x = x, y = y, fill = ZI11)) + 
+          scale_fill_gradientn(name = "Elevation", colors = terrain.colors(100)) +
+          ggtitle("Mappa della zona di innesco nel 2011")
+innesco2020pl <-     ggplot() +
+          geom_raster(data = inn20_df , aes(x = x, y = y, fill = ZI20)) + 
+          scale_fill_gradientn(name = "Elevation", colors = terrain.colors(100)) +
+          ggtitle("Mappa della zona di innesco nel 2020")    
+
+grid.arrange(innesco2011,innesco2020, nrow =1) #need gridExtra
+
+jpeg("/Users/mariaelenacavallini/lab/ESAME/zona_innesco1.png", 1100, 800) #per il salvataggio
+plotRGB(innesco11, r=1, g=2, b=3, stretch="lin",  axes=TRUE, main = "Mappa della zona di innesco nel 2011")
+dev.off()
+jpeg("/Users/mariaelenacavallini/lab/ESAME/zona_innesco2.png", 1100, 800) #per il salvataggio
+plotRGB(innesco20, r=1, g=2, b=3, stretch="lin",  axes=TRUE, main = "Mappa della zona di innesco nel 2011")
+dev.off()
