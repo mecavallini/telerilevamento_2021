@@ -335,3 +335,89 @@ dev.off()
 jpeg("/Users/mariaelenacavallini/lab/ESAME/zona_innesco2.png", 1100, 800) #per il salvataggio
 plotRGB(innesco20, r=1, g=2, b=3, stretch="lin",  axes=TRUE, main = "Mappa della zona di innesco nel 2011")
 dev.off()
+
+#aggiungo la parte del 2021, riferito solo al bacino di monitoraggio (2)
+############################## inserisco zone di innesco e canale sottobacino 2 #################
+library(rgdal)
+library(raster)
+library(ggplot2)
+library(gridExtra)
+
+# import raster
+upGadria21 <- brick("/Users/mariaelenacavallini/")
+downGadria2021 <- brick("/Users/mariaelenacavallini/")
+
+#classificazione delle 2 immagini con 3 classi
+#classificazione a 3
+set.seed(42) #per il numero random
+cl2 <- colorRampPalette(c('navyblue','chartreuse4','goldenrod1'))(100)
+#jpeg("/Users/mariaelenacavallini/lab/ESAME/CLg11.jpg", 800, 800)
+CLZI21up <- unsuperClass(upGadria21, nClasses=3)
+par(mfrow=c(2,1))
+plotRGB(upGadria21, r=1, g=2, b=3, stretch="lin", main = "Plot zona innesco 2021") 
+plot(CLZI21up$map,col=cl2)
+#     ??????   1navyblue zona in erosione
+#     ??????   2chartreuse4 (verde) zona in ombra + bosco
+#     ??????   3goldenrod1 zona più stabile
+CLZI21down <- unsuperClass(downGadria21, nClasses=3)
+par(mfrow=c(2,1))
+plotRGB(downGadria21, r=1, g=2, b=3, stretch="lin", main = "Plot zona canale 2021") 
+plot(CLZI21down$map,col=cl2)
+
+#frequenza 2021up
+f21up <- freq(CLZI21up$map)
+#1navyblue zona in erosione
+#2chartreuse4 (verde) zona in ombra + bosco
+#3goldenrod1 zona più stabile
+s21up <- sum(1129363,982999,1645631)
+prop21up <- f21up/s21up
+up_21 <- prop21up* 100
+
+#frequenza 2021down
+f21down <- freq(CLZI21down$map)
+#1navyblue zona in erosione
+#2chartreuse4 (verde) zona in ombra + bosco
+#3goldenrod1 zona più stabile
+s21down <- sum(1129363,982999,1645631)
+prop21down <- f21down/s21down
+down_21 <- prop21down* 100
+
+
+#generazione di un dataset (dataframe)
+#cl2 <- colorRampPalette(c('navyblue','chartreuse4','goldenrod1'))(100)
+cover <- c('zona in ombra','zona di erosione', 'zona più stabile')
+#navyblue zona in erosione
+#goldenrod1 zona più stabile
+#chartreuse4 (verde) zona di bosco
+percent_21up <- c(30.05,26.16,43.79)
+percent_21down <- c(33.30,21.55,45.15)
+percentages <- data.frame(cover, percent_21up, percent_21down) #column names
+percentages
+anno <- c("2021-06") 
+percentuali <- c(Zpercent_11,Zpercent_20) 
+copertura <- cover 
+Zdata <- data.frame(anno,Zpercentuali,copertura)
+Zdata
+
+My_Theme = theme(
+  axis.title.x = element_text(size = 18),
+  axis.text.x = element_text(size = 18),
+  axis.title.y = element_text(size = 18),
+  legend.position="right", legend.background = element_rect(fill="lightblue", size=0.5, linetype="solid", colour ="black"), #“left”,“top”, “right”, “bottom”, “none”.
+  legend.key.size = unit(2, 'cm'),
+  legend.title=element_text(size=20), 
+  legend.text=element_text(size=20))
+
+ziipl11 <- ggplot(Zpercentages, aes(x= cover, y=Zpercent_11 , color=cover)) + #color=cover -> è la legenda
+          geom_bar(stat="identity", fill="white")
+ziipl20 <- ggplot(Zpercentages, aes(x= cover, y=Zpercent_20, color=cover)) + #color=cover -> è la legenda
+          geom_bar(stat="identity", fill="white")
+grid.arrange(ziipl11,ziipl20, nrow =1) #need gridExtra
+
+
+zipl <- ggplot(Zdata, aes(fill=anno, y=Zpercentuali, x=copertura)) + geom_bar(position="dodge", stat="identity") +
+          geom_text(aes(label = Zpercentuali),position=position_dodge(width=0.9), vjust=-0.25, size = 10) +
+          My_Theme
+jpeg("/Users/mariaelenacavallini/lab/ESAME/grafico_percentuali_zona_innesco.png", 1100, 800) #per il salvataggio
+zipl
+dev.off()
