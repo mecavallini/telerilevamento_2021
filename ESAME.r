@@ -298,6 +298,7 @@ zipl
 dev.off()
 
 ############################## inserisco zone di innesco #################
+
 library(rgdal)
 library(raster)
 library(ggplot2)
@@ -338,14 +339,20 @@ dev.off()
 
 #aggiungo la parte del 2021, riferito solo al bacino di monitoraggio (2)
 ############################## inserisco zone di innesco e canale sottobacino 2 #################
+#fa schifo perche non si vede niente
 library(rgdal)
 library(raster)
 library(ggplot2)
 library(gridExtra)
-
+setwd("/Users/mariaelenacavallini/lab/ESAME")
 # import raster
-upGadria21 <- brick("/Users/mariaelenacavallini/")
-downGadria2021 <- brick("/Users/mariaelenacavallini/")
+upGadria21 <- brick("Ortophoto_Up_Gadria_2021_06.tif")
+downGadria2021 <- brick("Orto_Down_Gadria_2021_06.tif")
+
+par(mfrow=c(1,2))
+plotRGB(upGadria21, r=1, g=2, b=3, stretch="lin", main = "Plot UP") 
+plotRGB(downGadria2021, r=1, g=2, b=3, stretch="lin", main = "Plot DOWN") 
+
 
 #classificazione delle 2 immagini con 3 classi
 #classificazione a 3
@@ -353,16 +360,20 @@ set.seed(42) #per il numero random
 cl2 <- colorRampPalette(c('navyblue','chartreuse4','goldenrod1'))(100)
 #jpeg("/Users/mariaelenacavallini/lab/ESAME/CLg11.jpg", 800, 800)
 CLZI21up <- unsuperClass(upGadria21, nClasses=3)
+
 par(mfrow=c(2,1))
 plotRGB(upGadria21, r=1, g=2, b=3, stretch="lin", main = "Plot zona innesco 2021") 
+#jpeg("/Users/mariaelenacavallini/lab/ESAME/Cl2021M.jpg", 800, 800)
 plot(CLZI21up$map,col=cl2)
 #     ??????   1navyblue zona in erosione
 #     ??????   2chartreuse4 (verde) zona in ombra + bosco
 #     ??????   3goldenrod1 zona più stabile
-CLZI21down <- unsuperClass(downGadria21, nClasses=3)
+CLZI21down <- unsuperClass(downGadria2021, nClasses=4)
 par(mfrow=c(2,1))
 plotRGB(downGadria21, r=1, g=2, b=3, stretch="lin", main = "Plot zona canale 2021") 
-plot(CLZI21down$map,col=cl2)
+jpeg("/Users/mariaelenacavallini/lab/ESAME/Cl2021V.jpg", 800, 800)
+cl4 <- colorRampPalette(c('navyblue','chartreuse4','goldenrod1', ' red'))(100)
+plot(CLZI21down$map,col=cl4)
 
 #frequenza 2021up
 f21up <- freq(CLZI21up$map)
@@ -421,3 +432,9 @@ zipl <- ggplot(Zdata, aes(fill=anno, y=Zpercentuali, x=copertura)) + geom_bar(po
 jpeg("/Users/mariaelenacavallini/lab/ESAME/grafico_percentuali_zona_innesco.png", 1100, 800) #per il salvataggio
 zipl
 dev.off()
+
+
+
+
+
+
